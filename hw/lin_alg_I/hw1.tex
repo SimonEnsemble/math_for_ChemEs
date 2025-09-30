@@ -1,0 +1,111 @@
+\documentclass[addpoints]{exam}
+\usepackage{cmbright}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mhchem}
+
+\header{CHE 525: math for CBEE's}{homework \#1}{fall 2025}
+
+\begin{document}
+
+\begin{questions}
+	\subsection*{Linear systems of equations in chemical engineering}
+ 	\question a bioreactor is a vessel in which biological conversion is carried out involving enzymes, micro-organisms, and/or animal and plant cells.
+	in the anaerobic fermentation of grain, the yeast \emph{Saccharomyces cerevisiae} digests glucose (\ce{C6H12O6}) from plants to form the products ethanol (\ce{C2H5OH}) and propenoic acid (\ce{C2H3CO2H}) by the following overall reactions:
+	
+	\hspace{2em} (rxn \#1): \ce{C6H12O6 -> 2C2H5OH + 2 CO2}
+	
+	\hspace{2em} (rxn \#2): \ce{C6H12O6 -> 2C2H3CO2H + 2H2O}
+	
+	in a batch process, a tank is charged with 4000\,kg of a 12\% solution of glucose in water. after fermentation, 120\,kg of \ce{CO2} are produced and 90\,kg of unreacted glucose remains in the broth. 
+	our goal is to determine the mass of ethanol and propenoic acid in the broth at the end of the fermentation process.
+	we assume none of the glucose is assimilated into the bacteria.
+	
+	\begin{parts}
+		\part write a list defining the variables that represent the pertinent unknowns in this problem. e.g., ``$m_{\ce{C2H5OH}}$ [kg]: the mass of ethanol in the bioreactor at the end of the fermentation process.''. note: you should have five unknowns.
+		\part apply a mass balance to arrive at a system of five equations for the five unknowns.
+		\part formulate the system of equations as a matrix-vector equation $\mathbb{A}x=\mathbf{b}$.
+		\part use Julia to solve the linear system of equations via building the coefficient matrix $\mathbb{A}$ and right-hand size vector $\mathbf{b}$.
+		\part use \texttt{UnicodePlots.jl} or \texttt{CairoMakie.jl} to draw a bar plot showing the \emph{mass fraction} of glucose, ethanol, and propenoic acid in the bioreactor broth at the end of the fermentation process (note: \ce{CO2} of course is in the gas phase.)
+	\end{parts}
+	 
+	
+	(\emph{source}: ``Basic principles and calculations in chemical engineering'' by Himmelblau and Riggs, 7th Ed., 2004)
+	
+	
+	 \question a winery in Oregon produces a Bordeaux-style red wine blend composed of a post-fermentation mixture of Cabernet Sauvignon, Merlot, and Cabernet Franc wines. 
+	 we have many barrels of our delicious and popular Bordeaux-style red wine blend we made last year.
+	 however, we forgot the make-up of the blend in terms of the three components.
+	to estimate the volume percent of the different components, we measured the alcohol and sugar content of: (i) the pure Cabernet Sauvignon, Merlot, and Cabernet Franc from last year and (ii) our blend. use this data to set up then solve (in Julia) a system of linear equations to estimate the volume \% Cabernet Sauvignon, Merlot, and Cabernet Franc in the blend. plot the volume percents as a pie chart or bar chart using \texttt{UnicodePlots.jl} or \texttt{CairoMakie.jl}.
+	  
+	 \begin{table}[h!]
+	 \centering
+	  \begin{tabular}{c c c c }
+		\hline
+		wine variety & alcohol [g/L] & sugar [g/L]  \\
+		\hline
+		Cabernet Sauvignon &  108 & 2.2 \\
+		Merlot &  114 & 3.0 \\
+		Cabernet Franc & 112 & 0.1 \\
+		\hline
+		blend & 112.1 & 1.43 
+	\end{tabular}
+	\end{table}
+	
+	\subsection*{Vectors}
+	\question describe geometrically (line, plane, or all of $\mathbb{R}^3$) all linear combinations of:
+	\begin{parts}
+		\part $\begin{bmatrix}  1 \\ 2 \\3 \end{bmatrix}$ and $\begin{bmatrix}  3\\ 6\\9 \end{bmatrix}$
+		\part $\begin{bmatrix}  1 \\ 0 \\0 \end{bmatrix}$ and $\begin{bmatrix}  0\\ 2\\3 \end{bmatrix}$
+		\part $\begin{bmatrix}  2 \\ 0 \\0 \end{bmatrix}$,  $\begin{bmatrix}  0\\ 2 \\2 \end{bmatrix}$, and $\begin{bmatrix}  2\\ 2\\3 \end{bmatrix}$
+		\part $\begin{bmatrix}  1\\ 2 \\3 \end{bmatrix}$,  $\begin{bmatrix}  -3\\ 1 \\-2 \end{bmatrix}$, and $\begin{bmatrix}  2\\ -3\\-1 \end{bmatrix}$
+	\end{parts}
+	
+	\question write two equations for $c$ and $d$ so that the linear combination $c\mathbf{v}+d\mathbf{w}=\mathbf{b}$, with:
+	\begin{equation*}
+		\mathbf{v} = \begin{bmatrix} 2 \\ -1 \end{bmatrix}, \mathbf{w} = \begin{bmatrix} -1 \\ 2 \end{bmatrix}, \mathbf{b} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
+	\end{equation*}
+	
+	\question draw 
+	$\mathbf{v} = \begin{bmatrix} 4 \\ 1 \end{bmatrix}$ and $\mathbf{w} = \begin{bmatrix} -2 \\ 2 \end{bmatrix}$, $\mathbf{v}+\mathbf{w}$, and $\mathbf{v}-\mathbf{w}$ in the 2D plane.
+	
+	\question find two vectors $\mathbf{v}$ and $\mathbf{w}$ such that $\mathbf{v}+\mathbf{w}=\begin{bmatrix}  4 \\ 5 \\6 \end{bmatrix}$ and $\mathbf{v}-\mathbf{w}=\begin{bmatrix}  2 \\ 5 \\8 \end{bmatrix}$.
+	
+	\question find two different combinations of $\mathbf{u}=\begin{bmatrix}  1\\3 \end{bmatrix}$, $\mathbf{v}=\begin{bmatrix}  2\\7 \end{bmatrix}$, and $\mathbf{w}=\begin{bmatrix}  1\\5 \end{bmatrix}$ that produce  $\mathbf{b}=\begin{bmatrix}  0\\1\end{bmatrix}$.
+	
+	\question find a unit vector $\mathbf{u}$ in the direction of $\mathbf{v}= \begin{bmatrix} 1 \\ 3 \end{bmatrix}$. find a unit vector $\mathbf{u}_\perp$ that is perpendicular to $\mathbf{v}$.
+	
+	\question compute the angle between:
+	\begin{equation*}
+		\mathbf{v} = \begin{bmatrix} 1 \\ \sqrt{3} \end{bmatrix}, \mathbf{w} = \begin{bmatrix} -1 \\ \sqrt{3} \end{bmatrix}
+	\end{equation*}
+	
+	\question find nonzero vectors $\mathbf{v}$ and $\mathbf{w}$ that are perpendicular to $\begin{bmatrix}  1\\0\\1 \end{bmatrix}$ and each other.
+	
+	\question if the dot product $\mathbf{v}\cdot \mathbf{w}$ is negative, what does this say about the two vectors? sketch two examples where $\mathbf{v}\cdot \mathbf{w} < 0$ in the 2D plane.
+	 
+	 \subsection*{Matrix times vectors}
+	 
+	 \question solve these three equations for $y_1, y_2, y_3$ in terms of $c_1, c_2, c_3$:
+	 \begin{equation*}
+	  \mathbb{S}\mathbf{y}=\mathbf{c} \hspace{5em} 
+	  \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0\\ 1 & 1 & 1 \end{bmatrix} 
+	  \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} =
+	  \begin{bmatrix} c_1 \\ c_2 \\ c_3 \end{bmatrix}
+	 \end{equation*}
+	 write the solution as a vector $\mathbf{y}$. then write the solution as a matrix $\mathbb{S}^{-1}$ times the vector $\mathbf{c}$. are the columns of $\mathbf{S}$ dependent or independent?
+	 
+	 \question find a combination $x_1\mathbf{w}_1+x_2\mathbf{w}_2+x_3\mathbf{w}_3$ that gives the zero vector with $x_1=1$. 
+	 \begin{equation*}
+		\mathbf{w_1} = \begin{bmatrix} 1 \\ 2 \\3 \end{bmatrix}, \mathbf{w_2} = \begin{bmatrix} 4 \\ 5 \\6 \end{bmatrix}, \mathbf{w_3} = \begin{bmatrix} 7 \\ 8 \\9 \end{bmatrix}, 
+	\end{equation*}
+	 those vectors are \fillin (independent or dependent?). the matrix $\mathbb{W}$ with those columns is \fillin (invertible or singular?). (I suggest you plot these vectors in desmos to visualize them and see for yourself.)
+	
+	 
+	 \question what number $c$ gives dependent columns so that the matrix is singular?
+	 \begin{equation*}
+	  \begin{bmatrix} 1 & 1 & 0 \\ 3 & 2 & 1\\ 7 & 4 & c \end{bmatrix} 
+	 \end{equation*}
+	 
+ \end{questions}
+\end{document}

@@ -238,16 +238,29 @@ list the three row operations in the form ``subtract \fillin times row \fillin f
 	\end{bmatrix}
 \end{equation*}
 
-\question what matrix $E$ puts $A$ into upper-triangular form $U=EA$? multiply by $E^{-1}=L$ to factor $A$ into $LU$.
+\question what matrix $E=E_3E_2E_1$ puts $A$ into upper-triangular form $U=EA$? multiply by $E^{-1}=L$ to factor $A$ into $LU$.
 \begin{equation*}
 	\begin{bmatrix}
-	2 & 1 & 0  \\
-	0 & 4 & 2 \\
-	6 & 3 & 5
+	1 & 0 & 1  \\
+	2 & 2 & 2 \\
+	3 & 4 & 5
 	\end{bmatrix}
 \end{equation*}
 
 \question (spend the most time understanding this one...) solve the following system $A\mathbf{x}=\mathbf{b}$ for $\mathbf{x}$ via (1) factoring $A=LU$ then (2) solving (a) the lower triangular system $L\mathbf{c}=\mathbf{b}$ followed by the upper triangular system $U\mathbf{x}=\mathbf{b}$. this is how computers solve linear systems of equations!
+
+\begin{equation*}
+	A = \begin{bmatrix}
+	2 & 4  \\
+	8 & 17
+	\end{bmatrix}
+	\quad
+	b = \begin{bmatrix}
+	2  \\
+	11 
+	\end{bmatrix}
+\end{equation*}
+
 
 \end{questions}
 

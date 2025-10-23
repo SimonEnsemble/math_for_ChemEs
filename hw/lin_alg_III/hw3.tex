@@ -1,0 +1,177 @@
+\documentclass[addpoints]{exam}
+\usepackage{cmbright}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{mhchem}
+\setlength\fillinlinelength{2em}
+
+\header{CHE 525: math for CBEE's}{homework \#3}{fall 2025}
+
+\begin{document}
+
+do all of these questions by hand, i.e. without a computer. of course, check your answers with Julia.
+
+\begin{questions}
+\subsection*{transposes and permutations}
+
+\question
+%2.7 P5
+with
+	\begin{equation*}
+		\mathbf{x}= \begin{bmatrix} 0 \\ 1\end{bmatrix} \quad A = \begin{bmatrix} 1 & 2 & 3 \\ 4& 5 & 6\end{bmatrix} \quad \mathbf{y}= \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} 
+	\end{equation*}
+\begin{parts}
+	\part compute $\mathbf{x}^\intercal A \mathbf{y}$.
+	\part this is the row $\mathbf{x}^\intercal A=$? times the column $\mathbf{y}$.
+	\part this is the row $\mathbf{x}^\intercal$ times the column $A\mathbf{y}=$?
+\end{parts}
+
+% 2.7 P11
+\question what permutation matrix $P$ makes the matrix $A$ upper triangular via $PA$?
+\begin{equation*}
+	A = \begin{bmatrix} 0 & 0 & 6 \\ 1 & 2  & 3 \\ 0 &  4 & 5\end{bmatrix}
+\end{equation*} 
+
+% 2.7 P20
+\question factor the symmetric matrix into $S=LDL^\intercal$ with $D$ the diagonal pivot matrix and $L$ the lower-triangular matrix.
+\begin{equation*}
+	S = \begin{bmatrix} 2 & -1 & 0 \\ -1 & 2  & -1 \\ 0 &  -1 & 2\end{bmatrix}
+\end{equation*} 
+
+% 2.7 P22
+\question find the $PA = LU$ factorization of the matrix
+\begin{equation*}
+	A = \begin{bmatrix} 1 & 2 & 0 \\ 2 & 4  & 1 \\ 1 &  1 & 1 \end{bmatrix}.
+\end{equation*} 
+
+% 3.1 P10
+\question which of the following are subspaces of $\mathbb{R}^3$?
+\begin{parts}
+	\part the plane of vectors $[b_1, b_2, b_3]$ with $b_1=b_2$
+	\part the plane of vectors with $b_1=1$
+	\part the vectors with $b_1b_2b_3=0$
+	\part all vectors that satisfy $b_1+b_2+b_3=0$
+	\part all vectors with $b_1 \leq b_2 \leq b_3$
+\end{parts}
+
+% 3.1 P20
+\question for which right-hand sides (find a condition on $b_1$, $b_2$, $b_3$) are these systems solvable?
+
+\begin{equation*}
+	\begin{bmatrix} 1 & 4 & 2 \\ 2 & 8  & 4 \\ -1 &  -4 & -2 \end{bmatrix} 
+	\begin{bmatrix} x_1 \\x_2\\x_3\end{bmatrix} = \begin{bmatrix} b_1 \\b_2\\b_3\end{bmatrix}
+\end{equation*} 
+
+\begin{equation*}
+	\begin{bmatrix} 1 & 4 \\ 2 & 9 \\ -1 &  -4 \end{bmatrix} 
+	\begin{bmatrix} x_1 \\x_2 \end{bmatrix} = \begin{bmatrix} b_1 \\b_2\\b_3\end{bmatrix}
+\end{equation*} 
+
+\subsection*{null space of a matrix}
+% S3.2 P15
+\question construct a matrix whose null space is all combinations of the two vectors
+\begin{equation*}
+	\begin{bmatrix} 2 \\ 2 \\ 1 \\ 0 \end{bmatrix} \quad, \begin{bmatrix}3 \\ 1  \\ 0 \\ 1 \end{bmatrix} 
+\end{equation*} 
+
+% S3.2 P1
+\question reduce the matrices $A$, $B$, and $C$ to their row-reduced echelon forms $R$. what is the null space of each matrix? we are looking for all solutions to e.g. $A\mathbf{x}=\mathbf{0}$.
+\begin{equation*}
+	A=\begin{bmatrix} 1 & 2 & 2 & 4 & 6\\1 &2&3&6&9 \\ 0&0&1&2&3\end{bmatrix} ,\quad B=\begin{bmatrix}2 & 4 & 2 \\ 0&4&4\\ 0&8&8 \end{bmatrix} , \quad C= \begin{bmatrix}-1& 3 & 5 \\ -2&6&10\end{bmatrix} 
+\end{equation*} 
+
+% S3.2 39
+\question fill out the matrix so it has rank 1.
+\begin{equation*}
+	B=\begin{bmatrix} & 9 & \\1 && \\ 2 &6& -3 \end{bmatrix}
+\end{equation*}
+
+% S3.2 P41
+\question choose vectors $\mathbf{u}$ and $\mathbf{v}$ such that rank one matrix $A=\mathbf{u}\mathbf{v}^\intercal$. this is the natural form for every matrix that is rank one.
+
+\begin{equation*}
+	A=\begin{bmatrix} 2&2&6&4\\ -1&-1&-3&-2 \end{bmatrix}
+\end{equation*}
+
+\question set up a system of equations and find the null space to solve for the proper coefficients in the chemical equation:
+
+\ce{C2H5OH + O2 -> CO2 + H2O}
+
+this is a nice example of where a null space comes into play and why there are infinite solutions (some of which are physically plausible). see A. Downey's textbook ``Think linear algebra for the answer, here \url{https://allendowney.github.io/ThinkLinearAlgebra/nullspace.html#stoichiometry}.
+
+\subsection*{the complete/general solution to $A\mathbf{x}=\mathbf{b}$}
+% S3.3 P4
+\question find the complete/general solution (i.e., all solutions) to the system:
+\begin{equation*}
+        \begin{bmatrix} 1&3&1&2\\ 2&6&4&8 \\0&0&2&4 \end{bmatrix}
+	\begin{bmatrix} x_1\\x_2\\x_3\\x_4 \end{bmatrix}=
+	\begin{bmatrix} 1\\3\\1 \end{bmatrix}
+\end{equation*}
+
+% S3.3 P4
+\question under what condition on $b_1$, $b_2$, $b_3$ is this system solvable?
+tag on $\mathbf{b}$ as the fourth column to the matrix and do elimination to find out.
+\begin{align*}
+x+2y-2z&=b_1\\
+2x+5y-4z&=b_2\\
+4x+9y-8z&=b_3
+\end{align*}
+
+% S3.3 P10
+\question construct a 2 by 3 system of equations with a particular solution $[2,4,0]$ and a null space consisting of multiples of $[1,1,1]$.
+
+% S3.3 P30
+\question reduce to an upper-triangular form $U\mathbf{x}=\mathbf{c}$ (Gaussian elimination) then further to row reduced echelon form $R\mathbf{x}=\mathbf{d}$ (Gauss-Jordan).
+write all solutions to the system using  $R\mathbf{x}=\mathbf{d}$.
+\begin{equation*}
+        \begin{bmatrix} 1&0&2&3\\ 1&3&2&0 \\2&0&4&9 \end{bmatrix}
+	\begin{bmatrix} x_1\\x_2\\x_3\\x_4 \end{bmatrix}=
+	\begin{bmatrix} 2\\5\\10 \end{bmatrix}
+\end{equation*}
+
+\subsection*{independence, basis, dimension}
+
+% S3.4 P5
+\question decide the dependence or independence of the following vectors, by looking for ways to combine them to arrive at the zero vector.
+\begin{parts}
+	\part $[1,3,2]$, $[2, 1, 3]$, $[3,2,1]$
+	\part $[1,-3,2]$, $[2, 1, -3]$, $[-3,2,1]$
+	\part $[1,0,0]$, $[1, 1, 0]$, $[1,1,1]$
+	\part $[2, 0, 0, 4]$, $[3, 6, 0, 6]$, $[4, 7, 0,8]$, $[1, 0, 9, 2]$
+\end{parts}
+
+% 13
+\question precisely describe the row space and column space of $U$.
+\begin{equation*}
+      U=  \begin{bmatrix} 1&1&0\\ 0&2&1 \\0&0&0\end{bmatrix}
+\end{equation*}
+
+% 20
+\question find basis vectors for the plane $x-2y+3z=0$ in $\mathbb{R}^3$. then find a basis for the intersection of that plane with the $xy$-plane. find a basis for all vectors perpendicular to the plane, too.
+
+% 28
+\question find a basis for all 2 by 3 matrices whose columns add to zero. what is the dimension of this abstract space?
+
+% 30
+\question find a basis for all 2 by 3 matrices whose null space contains $[2, 1, 1]$. what is the dimension of this abstract space?
+
+\subsection*{the four fundamental subspaces of a matrix}
+% 3.5 P3 P6 P14
+\question find a basis for each of the four fundamental subspaces of the following matrices. note, the $CR$ factorization of $D$ is provided for you (no need to multiply the matrices...). what are the dimensions of the subspaces? (check they satisfy the fundamental theorem of linear algebra.)
+\begin{equation*}
+      A = \begin{bmatrix} 0&3&3&3 \\ 0&0&0&0\\ 0&1&0&1 \end{bmatrix},  \quad B=\begin{bmatrix} 1&2&4 \\ 2&5&8 \end{bmatrix},\quad D = \begin{bmatrix} 1&0&0 \\ 6&1&0\\ 9&8&1 \end{bmatrix}\begin{bmatrix} 1&2&3&4 \\ 0&1&2&3\\ 0&0&1&2 \end{bmatrix},
+\end{equation*}
+
+\question without multiplying matrices, find bases for the row and column space of $A$. is the square matrix $A$ invertible?
+
+\begin{equation*}
+      A = \begin{bmatrix} 1&2\\4&5 \\ 2&7 \end{bmatrix} \begin{bmatrix} 3&0&3\\1&1 &2 \end{bmatrix}
+\end{equation*}
+
+
+\end{questions}
+
+ (\emph{source} for linear algebra problems: ``Introduction to Linear Algebra'' by Strang, 5th Ed., 2016)
+\end{document}

@@ -301,7 +301,7 @@ qr_fact = qr(A)
 R = qr_fact.R
 
 # ╔═╡ eaef0e2b-8fb4-4fd6-b665-4f47867cb449
-Q = qr_fact.Q[:, 1:size(A)[2]] # why does Julia return a 15 x 15 matrix?
+Q = Matrix(qr_fact.Q)
 
 # ╔═╡ 152787db-65f9-4b1f-9089-cdead02a7329
 md"note all three give the same result for the best-fit ellipse."

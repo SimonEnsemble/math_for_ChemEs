@@ -184,7 +184,8 @@ function fit_ellipse(data, cell)
 
 	A, b = build_linear_system(data_cell)
 
-	B, C, D, E, F = (A' * A) \ (A' * b) # A \ b works too...
+	# B, C, D, E, F = (A' * A) \ (A' * b) # not efficient
+	B, C, D, E, F = A \ b # solves least-squares problem with A = QR
 end
 
 # ╔═╡ d19083b6-1759-4ad3-bbdd-351dca81e4f0

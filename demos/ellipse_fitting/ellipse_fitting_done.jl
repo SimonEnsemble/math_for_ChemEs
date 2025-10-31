@@ -138,51 +138,54 @@ begin
 end
 
 # ╔═╡ 10ff22f6-5d67-4237-8926-4ac8d4bfbbbe
-md"🩸 write a function that takes in a data frame tracing the outline of a single cell, then builds the linear system $A\mathbf{x}=\mathbf{b}$ for fitting an ellipse to the cell outline. here the unknown vector $\mathbf{x}=[B, C, D, E, F]$.
+md"🩸 write a function that takes in a data frame with the outlines of the cells and a particular cell label, then
+1. filters the data that pertain to that cell
+2. builds the linear system $A\mathbf{x}=\mathbf{b}$ for fitting an ellipse to that cell outline
+it should return the coefficient matrix $A$ and right hand size vector $b$. 
+
+here, the unknown vector $\mathbf{x}=[B, C, D, E, F]$ constitutes the parameters of the ellipse (we check it's a valid ellipse later).
 "
 
 # ╔═╡ d994330e-e52d-445f-b543-937f83f5d5ff
-function build_linear_system(data_cell)
-	n = nrow(data_cell) # number of points
+"""
+	build_linear_system(data, cell)
 
-	# pre-allocate A & b, for A x = b
-	A = zeros(n, 5)
-	b = zeros(n)
+build linear system A x = b for fitting an ellipse to 
+a particular cell.
 
-	# loop over data
-	for i = 1:n
-		# (x, y) of this point
-		x = data_cell[i, "x [µm]"]
-		y = data_cell[i, "y [µm]"]
-		
-		A[i, :] = [x * y, y^2, x, y, 1]
-		b[i] = -x^2
-	end
+here x = [B, C, D, E, F]
+in the implicit eqn for an ellipse:
+x^2 + B x y + C y^2 + D x + E y + F = 0
+"""
+function build_linear_system(data, cell)
+	# filter data pertaining to this cell
+	data_cell = filter(row -> row["cell"] == cell, data)
+	
+	# coordinates of the cell outline
+	x = data_cell[:, "x [µm]"]
+	y = data_cell[:, "y [µm]"]
+
+	# A x = b
+	b = - x .^ 2
+	A = hcat(x .* y, y .^ 2, x, y, ones(length(x)))
 	
 	return A, b
 end
 
 # ╔═╡ a6f9944c-74aa-4bcc-a858-4d120325b7c3
-begin
-	# e.g.
-	data_cell_A = filter(row -> row["cell"] == "A", data)
-	build_linear_system(data_cell_A)
-end
+A, b = build_linear_system(data, "A")
 
 # ╔═╡ 3a0c46bb-b9d1-41af-aa31-972aec9eede7
 md"🩸 write a function that takes in the entire data and a particular cell label then:
-1. filters the points in the data pertaining to that cell outline
-2. builds the linear system $A\mathbf{x}=\mathbf{b}$ for the ellipse of best fit to that cell outline
-3. uses least squares to solve the linear system. 
+1. builds the linear system $A\mathbf{x}=\mathbf{b}$ for the ellipse of best fit to that cell outline
+2. uses least squares to solve the linear system for $\mathbf{x}$. 
 
 the function should return the $B, C, D, E, F$ parameters in the implicit ellipse equation that fit the data best.
 "
 
 # ╔═╡ af73310e-5da4-4fd3-b9d4-7b8918c36389
 function fit_ellipse(data, cell)
-	data_cell = filter(row -> row["cell"] == cell, data)
-
-	A, b = build_linear_system(data_cell)
+	A, b = build_linear_system(data, cell)
 
 	# B, C, D, E, F = (A' * A) \ (A' * b) # not efficient
 	B, C, D, E, F = A \ b # solves least-squares problem with A = QR
@@ -258,7 +261,7 @@ begin
 		
 		ellipse = build_ellipse(B, C, D, E, F)
 		
-		viz!(ax, ellipse, cell_to_color[cell])
+		viz!(ax, ellipse, "black")
 	end
 	fig
 end
@@ -268,6 +271,52 @@ md"🩸 which cell is most [essentric](https://en.wikipedia.org/wiki/Ellipse#Ecc
 
 cell F is least eccentric, while cell E is most eccentric. 
 "
+
+# ╔═╡ d8ce94b8-1bb3-46e1-afd9-0a1800b4b887
+md"🩸 more manually solving the least squares problem with the $A=QR$ factorization.
+
+the normal eqn is
+```math
+A^\intercal A \hat{\mathbf{x}} = A^\intercal \mathbf{b}.
+```
+applying the $A=QR$ factorization, where $Q$ has orthonormal columns and $R$ is triangular:
+```math
+R^\intercal Q^\intercal QR \hat{\mathbf{x} } = R^\intercal Q^\intercal \mathbf{b}.
+```
+and using $Q^\intercal Q=I$:
+```math
+R^\intercal R \hat{\mathbf{x} } = R^\intercal Q^\intercal \mathbf{b}.
+```
+so the eqn is really just the following triangular system:
+```math
+ R \hat{\mathbf{x}} = Q^\intercal \mathbf{b}.
+```
+it is more efficient and numerically stable to solve _this_ system instead of directly computing $A^\intercal A$.
+"
+
+# ╔═╡ 8c04a8f8-a7ea-4e7c-ab87-0d41e04edbc4
+qr_fact = qr(A)
+
+# ╔═╡ b0597c76-53dd-4099-839c-f95126f3aa19
+R = qr_fact.R
+
+# ╔═╡ eaef0e2b-8fb4-4fd6-b665-4f47867cb449
+Q = qr_fact.Q[:, 1:size(A)[2]] # why does Julia return a 15 x 15 matrix?
+
+# ╔═╡ 152787db-65f9-4b1f-9089-cdead02a7329
+md"note all three give the same result for the best-fit ellipse."
+
+# ╔═╡ 67ae8b1f-d534-4cd0-b530-416888387f00
+x̂ = R \ (Q' * b)
+
+# ╔═╡ c0f22b24-8980-4503-b865-101bdf098d88
+A \ b
+
+# ╔═╡ 6cf55a71-dcf2-4a5b-9e54-bf2bea2a434e
+(A' * A) \ (A' * b)
+
+# ╔═╡ dd1984d5-55ac-4476-a087-dd43328a9fed
+fit_ellipse(data, "A")
 
 # ╔═╡ Cell order:
 # ╠═3072df64-b4ea-11f0-900f-9d704223bdbd
@@ -300,3 +349,12 @@ cell F is least eccentric, while cell E is most eccentric.
 # ╠═4ccc0563-ab71-4501-aebf-b8e9b1e4ef32
 # ╠═cf7cdd9e-d2d8-4b5a-b301-227dce4d9c7a
 # ╟─17981371-a213-4061-b998-8cd472570d5b
+# ╟─d8ce94b8-1bb3-46e1-afd9-0a1800b4b887
+# ╠═8c04a8f8-a7ea-4e7c-ab87-0d41e04edbc4
+# ╠═b0597c76-53dd-4099-839c-f95126f3aa19
+# ╠═eaef0e2b-8fb4-4fd6-b665-4f47867cb449
+# ╟─152787db-65f9-4b1f-9089-cdead02a7329
+# ╠═67ae8b1f-d534-4cd0-b530-416888387f00
+# ╠═c0f22b24-8980-4503-b865-101bdf098d88
+# ╠═6cf55a71-dcf2-4a5b-9e54-bf2bea2a434e
+# ╠═dd1984d5-55ac-4476-a087-dd43328a9fed

@@ -1,0 +1,48 @@
+\documentclass[addpoints]{exam}
+\usepackage{cmbright}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{mhchem}
+\setlength\fillinlinelength{2em}
+
+\header{CHE 525: math for CBEE's}{homework \#5}{fall 2025}
+
+\begin{document}
+
+do all of these questions by hand, i.e. without a computer. of course, check your answers with Julia.
+
+\begin{questions}
+\subsection*{orthonormal bases}
+
+%4.4 p5
+\question find two orthogonal vectors in the plane $x+y+2z=0$. make them orthonormal.
+
+\question if the matrix $Q$ has orthonormal columns, what is the least squares solution $\hat{\mathbf{x}}$ to $Q\mathbf{x}=\mathbf{b}$? 
+%what is the projection of $\mathbf{b}$ onto the column space of $Q$?
+
+% 4.4 P15
+\question 
+	\begin{parts}
+\part find orthonormal vectors $\mathbf{q}_1$, $\mathbf{q}_2$ that span the column space of:
+\begin{equation}
+A =
+\begin{bmatrix}
+1 & 1\\
+2 & -1\\
+-2 & 4
+\end{bmatrix}
+\end{equation}
+
+\part write the $Q=[\mathbf{q}_1, \mathbf{q}_2]$ and $R$ matrices for the factorization $A=QR$. (check that it works in Julia by \texttt{Q * R}. note \texttt{Q, R = qr(A)} should give the same directions but maybe different signs.)
+
+\part faced with the overdetermined system $A\mathbf{x}=\begin{bmatrix}2 \\ 2 \\ 7\end{bmatrix}$, use your $A=QR$ factorization to find the least squares solution $\hat{\mathbf{x}}$. you should arrive at a 2 by 2 triangular system to solve for $\hat{\mathbf{x}}$. (check your answer with \texttt{A \textbackslash b} in Julia.) 
+
+\part finally, find a third vector $\mathbf{q}_3$ that makes $\mathbf{q}_1, \mathbf{q}_2, \mathbf{q}_{3}$ an orthonormal basis for $\mathbb{R}^{3}$. which of the four fundamental subspaces of $A$ contains $\mathbf{q}_{3}$?
+
+
+\end{parts}
+\end{questions}
+ (\emph{source}: ``Introduction to Linear Algebra'' by Strang, 5th Ed., 2016)
+\end{document}

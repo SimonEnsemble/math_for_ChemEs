@@ -93,8 +93,23 @@ md"🐶 diagonization of the matrix $A=X\Lambda X^{-1}$"
 # ╔═╡ b0855605-3ff8-47f6-8511-52ea1b0cb313
 X # eigenvectors in cols
 
+# ╔═╡ 93caad74-d2d7-4e07-a395-fdf7868a821d
+X⁻¹ = inv(X)
+
 # ╔═╡ fd8f1214-0b83-443f-9aa7-d90321e5489b
-@test A ≈ X * Λ * inv(X)
+@test A ≈ X * Λ * X⁻¹
+
+# ╔═╡ 90b8dcb9-9ca3-454f-badf-5950cc9b79e3
+md"🐶 powers of the matrix $A$."
+
+# ╔═╡ ff514419-53d2-4096-a37f-3d6fbc254924
+A ^ 3
+
+# ╔═╡ 622e1ad8-fcea-464a-84db-a229ee38877a
+X * Λ ^ 3 * X⁻¹
+
+# ╔═╡ 142a8b56-c43b-4ecf-a7c8-e788ede3e933
+@test A ^ 12 ≈ X * Λ ^ 12 * X⁻¹
 
 # ╔═╡ Cell order:
 # ╠═9c4c1df8-bdd8-11f0-97de-b9d5501b6f88
@@ -115,4 +130,9 @@ X # eigenvectors in cols
 # ╟─d2f663aa-e1c2-4bc4-9b96-45b11c961c9b
 # ╠═27c6abc5-b49b-4557-aa5b-f313ec7c3a28
 # ╠═b0855605-3ff8-47f6-8511-52ea1b0cb313
+# ╠═93caad74-d2d7-4e07-a395-fdf7868a821d
 # ╠═fd8f1214-0b83-443f-9aa7-d90321e5489b
+# ╟─90b8dcb9-9ca3-454f-badf-5950cc9b79e3
+# ╠═ff514419-53d2-4096-a37f-3d6fbc254924
+# ╠═622e1ad8-fcea-464a-84db-a229ee38877a
+# ╠═142a8b56-c43b-4ecf-a7c8-e788ede3e933

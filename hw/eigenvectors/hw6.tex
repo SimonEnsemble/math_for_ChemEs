@@ -30,8 +30,25 @@
 	\part plot the solutions $u_i(t)$ for $i\in \{1, 2\}$ ---for sufficiently long to see the steady-state behavior. does the behavior make sense?
 \end{parts}
 
-\subsection*{Markov chain}
+\newpage 
+
+\subsection*{Markov chains}
 % https://pubs.acs.org/doi/10.1021/ie900456j
+
+\question \textbf{simplified model of a grinding process.} consider a hard, brittle coffee bean that can fracture along two crossing fault lines.
+we put many of these beans inside a ball-milling machine to, ultimately, break up each bean into four pieces. 
+we begin with whole beans. inside the ball-milling machine, (1) each whole bean can fraction into (a) two two-unit pieces (b) a one-unit piece and a three-unit piece; (2) each three-unit piece can fracture into a two-unit piece and a one-unit piece; and (3) each two-unit piece can fracture into two one-unit pieces.
+the probability of each of these state transitions with each full revolution of the ball-milling machine is indicated in the figure below.
+
+\includegraphics[width=0.5\linewidth]{ball_milling.pdf}
+
+\begin{parts}
+	\part formulate a Markov model of this coffee grinding process. specifically, define a state vector $\mathbf{u}$ and find the appropriate Markov matrix $P$. ensure the sum in each column of your Markov matrix is one. (hint: there should be five states. start with a single whole coffee bean, and think about the states it could be in during the process of ball-milling.) each step of the Markov chain constitutes one revolution of the ball milling machine.
+	\part in Julia, calculate the probability of the coffee bean, starting whole, (i) remaining whole and (ii) being broken into four one-unit pieces, as a function of the number of revolutions of the ball mill. plot both as curves on the same plot. include x- and y-axis labels and a legend.
+	\part beginning with the whole coffee bean, list the probabilities of residing in each state after 20 revolutions of the ball mill.
+	\part according to the Markov model of the coffee bean grinding by the ball mill, what is the minimal number of revolutions of the ball mill needed for the whole coffee bean to be broken into four one-unit pieces with $\geq 95$\% probability?
+	\part compute the eigenvalues and eigenvectors of the Markov matrix $P$ in Julia. what is the eigenvalue associated with eigenvalue $\lambda = 1$? interpret/explain.
+\end{parts}
 
 \end{questions}
 \end{document}

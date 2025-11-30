@@ -42,16 +42,6 @@
     \end{itemize}
     you should arrive at a second-order ordinary differential equation (ODE) for $h(t)$.
 
-%%        
-%            \begin{equation*}
-%        \rho R^2 L \frac{d^2h}{dt^2} = - R^2 \rho g h(t) - 8 \mu L \frac{dh}{dt} 
-%%        \label{eq:h}
-%   \end{equation*} 
-          
-
-
-
-
 
         % check unit consistency
         % all units: m/s^2
@@ -87,7 +77,7 @@
 \end{equation*}
 the coefficient matrix $A$ should be written in terms of the parameters $R$, $\mu$, $\rho$, etc.
 
-\question suppose the manometer tube (on earth, g=9.8\,m/s$^2$) has $R=0.01$\,m and $L=0.2$\,m; olive oil ($\rho=997$\,kg/m$^3$, $\mu=0.001$ Pa$\cdot$s) inside; and begins with $h_0=0.05$\,m. compute the eigenvalues and eigenvectors of the coefficient matrix $A$ in Julia (they should be complex). based on these eigenvalues and eigenvectors, write the solution to $\mathbf{x}(t)$ in the time domain. plot $h(t)$ in Julia. for writing out $h(t)$, you may use only one significant figure from the eigenvalues/vectors.
+\question suppose the manometer tube (on earth, g=9.8\,m/s$^2$) has $R=0.01$\,m and $L=1$\,m; olive oil ($\rho=997$\,kg/m$^3$, $\mu=0.001$ Pa$\cdot$s) inside; and begins at rest with $h(0)=0.2$\,m. compute the eigenvalues and eigenvectors of the coefficient matrix $A$ in Julia (they should be complex). based on these eigenvalues and eigenvectors, write the solution to $\mathbf{x}(t)$ in the time domain. plot $h(t)$ in Julia for $t\in[0, 60]$\,s. for writing out $h(t)$, you may use only one significant figure from the eigenvalues/vectors.
 
  
 \end{questions}
